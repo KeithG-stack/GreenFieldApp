@@ -1,4 +1,4 @@
-import { sequelize } from '../Config/config.js';
+import { sequelize } from '../config/config.js';
 import { DataTypes } from 'sequelize';
 import bcrypt from 'bcryptjs';
 // this is how the user will be controll there finances

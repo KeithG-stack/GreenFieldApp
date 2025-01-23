@@ -3,9 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile</title>
+    <title>Student Profile - Greenfield University</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
-    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Greenfield University</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#personal">Personal Information</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#academic">Academic History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#education">Educational Background</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#grants">Grants/Funding</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#achievements">Achievements/Awards</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Student Profile</h1>
+        
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <img src="https://example.com/student-profile-pic.jpg" alt="Student Profile Picture" class="profile-pic rounded-circle mx-auto d-block">
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title" id="personal">Personal Information</h2>
+                        <p><strong>Name:</strong> <%= studentName %></p>
+                        <p><strong>Student ID:</strong> <%= studentId %></p>
+                        <p><strong>Email:</strong> <%= studentEmail %></p>
+                        <p><strong>Major:</strong> <%= studentMajor %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title" id="academic">Academic History</h2>
+                        <p><strong>Current GPA:</strong> <%= currentGPA %></p>
+                        <p><strong>Expected Graduation:</strong> <%= expectedGraduation %></p>
+                        <p><strong>Completed Credits:</strong> <%= completedCredits %></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title" id="education">Educational Background</h2>
+                        <ul class="list-group list-group-flush">
+                            <% educationHistory.forEach(function(edu) { %>
+                                <li class="list-group-item">
+                                    <strong><%= edu.degree %></strong> - <%= edu.institution %> (<%= edu.year %>)
+                                </li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title" id="grants">Grants and Funding Received</h2>
+                        <ul class="list-group list-group-flush">
+                            <% grantsReceived.forEach(function(grant) { %>
+                                <li class="list-group-item">
+                                    <strong><%= grant.name %></strong> - $<%= grant.amount %> (<%= grant.year %>)
+                                </li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title" id="achievements">Academic Achievements and Awards</h2>
+                        <ul class="list-group list-group-flush">
+                            <% achievements.forEach(function(achievement) { %>
+                                <li class="list-group-item">
+                                    <strong><%= achievement.name %></strong> - <%= achievement.description %> (<%= achievement.year %>)
+                                </li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

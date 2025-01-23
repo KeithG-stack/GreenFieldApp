@@ -8,11 +8,13 @@ import { createDatabase } from '../Models/DatabaseCreation.js'; // Import the fu
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// I want to set the path to the .env file in the root directory
-config({ path: path.resolve(__dirname, '../.env') }); // Adjust if .env is not in the root directory
+
 
 // I Set up the Sequelize connection
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+const sequelize = new Sequelize
+    (process.env.DB_NAME, 
+    process.env.DB_USER, 
+    process.env.DB_PASSWORD, {
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 3306,
     dialect: 'mysql', // Specify the dialect
