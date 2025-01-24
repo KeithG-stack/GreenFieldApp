@@ -2,7 +2,6 @@ import express from 'express';
 import { createUser } from '../Models/UserCreation.js'; // Import the createUser function
 
 const router = express.Router();
-
 // Route to create a new user
 router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
