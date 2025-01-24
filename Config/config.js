@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize'; // Import Sequelize
 import { fileURLToPath } from 'url';
 import path from 'path';
-import { config } from 'dotenv';
+
 import { createDatabase } from '../Models/DatabaseCreation.js'; // Import the function from DatabaseCreation.js
 
 // Here is where Resolve __dirname for ES modules happens 
