@@ -1,10 +1,19 @@
-app.get('/apply', (req, res) => {
-    res.render('application');
-});
-app.post('/submit-application', (req, res) => {
-    // Process the form data here
-    // You can access form data using req.body
-    // Remember to use body-parser middleware or express.urlencoded() for parsing form data
-    console.log(req.body);
-    res.send('Application received!');
+import express from 'express';
+import bodyParser from 'body-parser';
+import userRoutes from './routes/userRoutes.js'; // Import the user routes
+
+const app = express();
+
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Use the user routes
+app.use('/api/users', userRoutes); // Prefix all user routes with /api/users
+
+// Other routes and middleware can be defined here
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });

@@ -5,13 +5,16 @@ import 'dotenv/config';
 import './Middleware/script.js';
 import authRoutes from './routes/auth.js';
 import { connect } from './config/config.js';
+import methodOverride from 'method-override';
+import cookieParser from 'cookie-parser';
+import { authenticateToken } from './routes/auth.js'; // Adjust the path as necessary
 
 // Basic Authentication for the Application with task managementand transactions
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = process.env.PORT || 2555;
+const PORT = 3000;
 
 connect();
 
@@ -31,11 +34,10 @@ app.get('/', (req, res) => {
 });
 
 // Routes
-app.use('/index', authenticateToken, taskRoutes);
 app.use('/', authRoutes);
-app.use('/', transactionRoutes);
 
-app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
+
+app.listen(PORT, () => {
+    console.log(`Server listening at http://localhost:${PORT}`);
 });
-export default router;
+export default app;

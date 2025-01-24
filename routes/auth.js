@@ -1,4 +1,6 @@
 import jwt from 'jsonwebtoken';
+import express from 'express';
+const Router = express.Router();
 
 // After importing necessary modules, create an authenticateToken middleware function to req and to  get res.
 export const authenticateToken = (req, res, next) => {
@@ -21,6 +23,6 @@ export const authenticateToken = (req, res, next) => {
         return res.redirect('/dashboard');
     }
 }; 
-Router.get("/dashboard"), authenticateToken
+Router.get("/dashboard", authenticateToken);
 
-export default router;
+export default Router;

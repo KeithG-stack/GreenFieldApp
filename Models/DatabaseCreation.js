@@ -1,36 +1,13 @@
-import { sequelize } from '../config/config.js';
+import { Sequelize } from 'sequelize';
 import { DataTypes } from 'sequelize';
 import bcrypt from 'bcryptjs';
-// this is how the user will be controll there finances
-const Transaction = sequelize.define('Transaction', {
-    type: {
-        type: DataTypes.ENUM('income', 'expense', 'withdraw'),
-        allowNull: false,
-    },
-    amount: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: false,
-    },
-    description: {
-        type: DataTypes.TEXT,
-    },
-    balance: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: true,
-    },
-    userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'users',
-            key: 'id'
-        }
-    }
-}, { 
-    timestamps: true,
-    tableName: 'transactions'
+
+const sequelize = new Sequelize('database', 'username', 'password', {
+    host: 'localhost',
+    dialect: 'mysql' // or 'postgres', 'sqlite', etc.
 });
-// here is how we validate the users credentials
+
+// Define the User model
 const User = sequelize.define('User', {
     name: {
         type: DataTypes.STRING,
@@ -53,15 +30,7 @@ const User = sequelize.define('User', {
     tableName: 'users'
 });
 
-// Define relationships
-User.hasMany(Transaction, {
-    foreignKey: 'userId',
-    onDelete: 'CASCADE'
-});
-Transaction.belongsTo(User, {
-    foreignKey: 'userId'
-});
-// connecting the DB to Sequelize
+// Connecting the DB to Sequelize
 const createDatabase = async () => {
     try {
         await sequelize.authenticate();
@@ -90,33 +59,10 @@ const insertSampleData = async () => {
                 password: await bcrypt.hash('password123', 10)
             });
             console.log('Default user created:', defaultUser.id);
-
-            // Create sample transactions for the default user
-            await Transaction.bulkCreate([
-                { 
-                    type: 'income', 
-                    amount: 1000.00, 
-                    description: 'Initial deposit',
-                    userId: defaultUser.id 
-                },
-                { 
-                    type: 'expense', 
-                    amount: 200.00, 
-                    description: 'Groceries',
-                    userId: defaultUser.id 
-                },
-                { 
-                    type: 'income', 
-                    amount: 500.00, 
-                    description: 'Salary',
-                    userId: defaultUser.id 
-                },
-            ]);
-            console.log('Sample transactions created');
         }
     } catch (error) {
         console.error('Error inserting sample data:', error);
     }
 };
 
-export { createDatabase, Transaction, User };
+export { createDatabase, User };
