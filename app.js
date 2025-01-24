@@ -4,7 +4,7 @@ import path from 'path';
 import 'dotenv/config';
 import './Middleware/script.js';
 import authRoutes from './routes/auth.js';
-import { connect } from './config/config.js';
+import { connect } from './Config/config.js';
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
 import { authenticateToken } from './routes/auth.js'; // Adjust the path as necessary
