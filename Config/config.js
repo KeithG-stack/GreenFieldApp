@@ -1,14 +1,9 @@
 import { Sequelize } from 'sequelize'; // Import Sequelize
-import { fileURLToPath } from 'url';
-import path from 'path';
-
 import { createDatabase } from '../Models/DatabaseCreation.js'; // Import the function from DatabaseCreation.js
 
-// Here is where Resolve __dirname for ES modules happens 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import 'dotenv/config'; 
 
-
+console.log('process.evn:::', process.env.DB_NAME);
 
 // I Set up the Sequelize connection
 const sequelize = new Sequelize
@@ -24,10 +19,10 @@ const sequelize = new Sequelize
 export async function connect() {
     try {
         await sequelize.authenticate(); // Authenticate the connection
-        console.log('Connected to the MySQL server.');
+ 
         
         // Invoke the database and table creation process
-        await createDatabase(); // Call the function that starts the process of creating the database and tables
+        // await createDatabase(); // Call the function that starts the process of creating the database and tables
     } catch (err) {
         console.error('Unable to connect to the database:', err);
         process.exit(1); // Exit process on server connection error

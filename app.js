@@ -38,10 +38,10 @@ app.use('/', authRoutes);
 
 // Example of using authenticateToken in a route
 app.get('/protected-route', authenticateToken, (req, res) => {
-    res.send('This is a protected route');
+     // this should send the user to the login page
+    res.send('/login');
 });
 
 app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);
 });
-export default app;
