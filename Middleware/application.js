@@ -13,7 +13,7 @@ app.use('/api/users', userRoutes); // Prefix all user routes with /api/users
 
 // Other routes and middleware can be defined here
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

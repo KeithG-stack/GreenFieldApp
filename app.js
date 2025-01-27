@@ -3,11 +3,11 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import 'dotenv/config';
 import './Middleware/script.js';
-import authRoutes from './routes/auth.js';
+import authRoutes from './Middleware/auth.js';
 import { connect } from './Config/config.js';
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
-import { authenticateToken } from './routes/auth.js'; // Adjust the path as necessary
+import { authenticateToken } from './Middleware/auth.js'; // Adjust the path as necessary
 
 // Basic Authentication for the Application with task managementand transactions
 const __filename = fileURLToPath(import.meta.url);
@@ -36,6 +36,10 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/', authRoutes);
 
+// Example of using authenticateToken in a route
+app.get('/protected-route', authenticateToken, (req, res) => {
+    res.send('This is a protected route');
+});
 
 app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);
