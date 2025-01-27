@@ -40,6 +40,8 @@ app.use('/', authRoutes);
 app.get('/protected-route', authenticateToken, (req, res) => {
      // this should send the user to the login page
     res.send('/login');
+
+    res.send('/login')
 });
 
 app.listen(PORT, () => {
