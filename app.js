@@ -8,6 +8,7 @@ import { connect } from './Config/config.js';
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
 import { authenticateToken } from './Middleware/auth.js'; // Adjust the path as necessary
+import mysql from 'mysql2'; // Import mysql2
 
 // Basic Authentication for the Application with task managementand transactions
 const __filename = fileURLToPath(import.meta.url);
@@ -42,8 +43,8 @@ app.get('/protected-route', authenticateToken, (req, res) => {
      // this should send the user to the login page
     res.send('/login');
 });
-app.listen(2727, () => {
-    console.log("Server is running on port 2727");
+app.listen(3001, () => {
+    console.log("Server is running on port 3001");
   });
 app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);
