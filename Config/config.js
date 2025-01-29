@@ -23,7 +23,7 @@ export async function connect() {
  
         
         // Invoke the database and table creation process
-        // await createDatabase(); // Call the function that starts the process of creating the database and tables
+        await createDatabase(); // Call the function that starts the process of creating the database and tables
     } catch (err) {
         console.error('Unable to connect to the database:', err);
         process.exit(1); // Exit process on server connection error
