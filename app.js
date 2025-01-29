@@ -14,7 +14,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3001;
+const PORT = 2727;
+
 
 connect();
 
@@ -29,8 +30,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Default route to render main_page.ejs
-app.get('/', (req, res) => {
-    res.render('main_page'); // Render the main_page view
+app.get('/', (req,res) => {
+    res.render('home'); // Render the main_page view
 });
 
 // Routes
@@ -41,7 +42,9 @@ app.get('/protected-route', authenticateToken, (req, res) => {
      // this should send the user to the login page
     res.send('/login');
 });
-
+app.listen(2727, () => {
+    console.log("Server is running on port 2727");
+  });
 app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);
 });

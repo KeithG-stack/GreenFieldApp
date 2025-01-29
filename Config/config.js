@@ -4,9 +4,7 @@ import { createDatabase } from '../Models/DatabaseCreation.js'; // Import the fu
 
 import 'dotenv/config'
 
-console.log('process.env:::', process.env.DB_.env.DB_NAME);
-
-console.log('process.evn:::', process.env.DB_NAME);
+console.log('process.env:::', process.env.DB_NAME);
 
 // I Set up the Sequelize connection
 const sequelize = new Sequelize
@@ -25,7 +23,7 @@ export async function connect() {
  
         
         // Invoke the database and table creation process
-        await createDatabase(); // Call the function that starts the process of creating the database and tables
+        // await createDatabase(); // Call the function that starts the process of creating the database and tables
     } catch (err) {
         console.error('Unable to connect to the database:', err);
         process.exit(1); // Exit process on server connection error

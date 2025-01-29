@@ -47,22 +47,22 @@ const createDatabase = async () => {
     }
 };
 
-const insertSampleData = async () => {
-    try {
-        // Check if there are any users
-        const userCount = await User.count();
-        if (userCount === 0) {
-            // Create default user
-            const defaultUser = await User.create({
-                name: 'Default User',
-                email: 'default@example.com',
-                password: await bcrypt.hash('password123', 10)
-            });
-            console.log('Default user created:', defaultUser.id);
-        }
-    } catch (error) {
-        console.error('Error inserting sample data:', error);
-    }
-};
+// const insertSampleData = async () => {
+//     try {
+//         // Check if there are any users
+//         const userCount = await User.count();
+//         if (userCount === 0) {
+//             // Create default user
+//             const defaultUser = await User.create({
+//                 name: 'Default User',
+//                 email: 'default@example.com',
+//                 password: await bcrypt.hash('password123', 10)
+//             });
+//             console.log('Default user created:', defaultUser.id);
+//         }
+//     } catch (error) {
+//         console.error('Error inserting sample data:', error);
+//     }
+// };
 
 export { createDatabase, User };
