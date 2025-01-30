@@ -13,7 +13,13 @@ router.post('/submit-application', async (req, res) => {
 
     try {
         await createUser(username, email, password);
+<<<<<<< HEAD
         res.redirect('login'); // Redirect to the login page upon successful user creation
+=======
+
+        res.render('login'); // Redirect to the login page upon successful user creation
+
+>>>>>>> 76196a6a5f2f736eabe9487c15b0523af2421ffe
     } catch (error) {
         if (error instanceof Sequelize.UniqueConstraintError) {
             res.render('register', { error: 'Email already exists' }); // Render the registration page with an error message
