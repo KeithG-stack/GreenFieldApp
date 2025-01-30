@@ -4,6 +4,9 @@ import { neon } from './database.js';
 import { initializeDatabase } from '../Models/DatabaseCreation.js';
 import 'dotenv/config'
 
+// Call the initializeDatabase function
+initializeDatabase();
+
 // Connect to the database
 export async function connect() {
     try {

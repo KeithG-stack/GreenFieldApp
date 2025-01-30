@@ -1,15 +1,13 @@
-// This file is used to create clients.
-import { User } from './DatabaseCreation.js'; // Import User model
+import { User } from './DatabaseCreation.js';
+import bcrypt from 'bcryptjs';
 
-const createUser = async (username, email, password) => {
-    try {
-        const user = await User.create({ name: username, email, password });
-        console.log('User created with ID:', user.id);
-    } catch (err) {
-        console.error('Error inserting user:', err);
-    }
-};
-
-// Example usage
+async function createUser(username, email, password) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    return User.create({
+        name: username,
+        email: email,
+        password: hashedPassword
+    });
+}
 
 export default createUser;

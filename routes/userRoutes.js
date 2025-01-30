@@ -1,19 +1,52 @@
 import express from 'express';
 import createUser from '../Models/UserCreation.js'; // Import the createUser function
+import { User } from '../Models/DatabaseCreation.js'; // Import the User model
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { Sequelize } from 'sequelize';
 
 const router = express.Router();
+
 // Route to create a new user
-router.post('/register', async (req, res) => {
+router.post('/submit-application', async (req, res) => {
     const { username, email, password } = req.body;
     try {
         await createUser(username, email, password);
-        res.status(201).json({ message: 'User created successfully' });
+        res.redirect('login'); // Redirect to the login page upon successful user creation
     } catch (error) {
-        res.status(500).json({ message: 'Error creating user', error });
+        if (error instanceof Sequelize.UniqueConstraintError) {
+            res.render('register', { error: 'Email already exists' }); // Render the registration page with an error message
+        } else {
+            res.render('register', { error: 'Error creating user' }); // Render the registration page with a generic error message
+        }
     }
 });
 
-// Additional user routes can be defined here
-// e.g., login, get user profile, etc.
+// Route to serve the login page
+router.get('/login', (req, res) => {
+    res.render('login'); // Render the login page (make sure you have a login.ejs file in your views folder)
+});
 
-export default router; 
+// Route to login a user
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.json({ message: 'Login successful', token });
+    } catch (error) {
+        console.error('Error logging in:', error); // Log the error for debugging
+        res.status(500).json({ message: 'Error logging in', error: error.message || error });
+    }
+});
+
+export default router;

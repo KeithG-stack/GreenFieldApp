@@ -25,8 +25,6 @@ export const User = neon.define('User', {
     tableName: 'users'
 });
 
-
-
 async function insertSampleData() {
     try {
         // Check if there are any users
@@ -42,6 +40,12 @@ async function insertSampleData() {
         }
     } catch (error) {
         console.error('Error inserting sample data:', error);
+    } finally {
+        // Close the database connection
+        await neon.close();
     }
 }
+
+// Export the function as initializeDatabase
+export { insertSampleData as initializeDatabase };
 

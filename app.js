@@ -1,15 +1,16 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import 'dotenv/config';
+import 'dotenv/config'; // Ensure this is present to load environment variables
 import './Middleware/script.js';
 import userRoutes from './routes/userRoutes.js';
-import { connect } from './Config/config.js';
+import { neon } from './Config/database.js'; // Import the sequelize instance
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
 import { authenticateToken } from './Middleware/auth.js'; // Adjust the path as necessary
+import bodyParser from 'body-parser';
 
-// Basic Authentication for the Application with task managementand transactions
+// Basic Authentication for the Application with task management and transactions
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -21,42 +22,27 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
+app.use(bodyParser.json());
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-//views/usethisfile.js
-
+// Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Default route to render main_page.ejs
-app.get('/', (req,res) => {
-    res.render('home'); // Render the main_page view
+// Default route to render home.ejs
+app.get('/', (req, res) => {
+    res.render('home'); // Render the home view
 });
 
-app.get('/application', (req,res) => {
-    res.render('application'); // Render the main_page view
+// Route to render the registration page
+app.get('/register', (req, res) => {
+    res.render('register', { error: null }); // Render the register view with error set to null
 });
-
-
 
 // Routes
-app.use('/', userRoutes);
-
-// Example of using authenticateToken in a route
-app.get('/protected-route', authenticateToken, (req, res) => {
-     // this should send the user to the login page
-    res.send('/login');
-});
-
-// Connect to database
-try {
-    await connect();
-} catch (error) {
-    console.error('Failed to connect to database:', error);
-    process.exit(1);
-}
+app.use('/users', userRoutes);
 
 app.listen(PORT, () => {
-    console.log(`Server listening at http://localhost:${PORT}`);
+    console.log(`Server is running on port http://localhost:${PORT}`);
 });
