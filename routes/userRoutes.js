@@ -13,7 +13,7 @@ router.post('/submit-application', async (req, res) => {
 
     try {
         await createUser(username, email, password);
-        res.redirect('/login'); // Redirect to the login page upon successful user creation
+        res.redirect('login'); // Redirect to the login page upon successful user creation
     } catch (error) {
         if (error instanceof Sequelize.UniqueConstraintError) {
             res.render('register', { error: 'Email already exists' }); // Render the registration page with an error message
@@ -50,7 +50,7 @@ router.post('/login', async (req, res) => {
 
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        res.render('StudentHome', {name: user.name});
+        res.redirect('StudentHome', {name: user.name});
 
 
     } catch (error) {
