@@ -12,7 +12,7 @@ router.post('/submit-application', async (req, res) => {
     const { username, email, password } = req.body;
     try {
         await createUser(username, email, password);
-        res.redirect('login'); // Redirect to the login page upon successful user creation
+        res.redirect('/login'); // Redirect to the login page upon successful user creation
     } catch (error) {
         if (error instanceof Sequelize.UniqueConstraintError) {
             res.render('register', { error: 'Email already exists' }); // Render the registration page with an error message
@@ -33,19 +33,21 @@ router.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ where: { email } });
         if (!user) {
-            return res.status(401).json({ message: 'Invalid email or password' });
+            return res.status(401).render('login', { error: 'Invalid email or password' });
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
-            return res.status(401).json({ message: 'Invalid email or password' });
+            return res.status(401).render('login', { error: 'Invalid email or password' });
         }
 
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ message: 'Login successful', token });
+
+        // Render the StudentHome view with the student's name
+        res.redirect('dashboard', { studentName: user.name });
     } catch (error) {
         console.error('Error logging in:', error); // Log the error for debugging
-        res.status(500).json({ message: 'Error logging in', error: error.message || error });
+        res.status(500).render('login', { error: 'Error logging in' });
     }
 });
 
