@@ -10,6 +10,7 @@ const router = express.Router();
 // Route to create a new user
 router.post('/submit-application', async (req, res) => {
     const { username, email, password } = req.body;
+
     try {
         await createUser(username, email, password);
         res.redirect('/login'); // Redirect to the login page upon successful user creation
@@ -29,9 +30,15 @@ router.get('/login', (req, res) => {
 
 // Route to login a user
 router.post('/login', async (req, res) => {
+
     const { email, password } = req.body;
+
+    console.log("LOGIN ", req.body)
+
     try {
         const user = await User.findOne({ where: { email } });
+
+        console.log("USER:::", user)
         if (!user) {
             return res.status(401).render('login', { error: 'Invalid email or password' });
         }
@@ -43,8 +50,9 @@ router.post('/login', async (req, res) => {
 
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        // Render the StudentHome view with the student's name
-        res.redirect('dashboard', { studentName: user.name });
+        res.render('StudentHome', {name: user.name});
+
+
     } catch (error) {
         console.error('Error logging in:', error); // Log the error for debugging
         res.status(500).render('login', { error: 'Error logging in' });

@@ -9,6 +9,7 @@ initializeDatabase();
 
 // Connect to the database
 export async function connect() {
+    
     try {
         await neon.authenticate();
         console.log('Successfully connected to Neon PostgreSQL database');
