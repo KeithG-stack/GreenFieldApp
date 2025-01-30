@@ -1,34 +1,20 @@
-import { Sequelize } from 'sequelize'; // Import Sequelize
+//connects to databse
 
-import { createDatabase } from '../Models/DatabaseCreation.js'; // Import the function from DatabaseCreation.js
-
+import { neon } from './database.js';
+import { initializeDatabase } from '../Models/DatabaseCreation.js';
 import 'dotenv/config'
 
-// console.log('process.env:::', process.env.DB_NAME);
-
-// // I Set up the Sequelize connection
-// const sequelize = new Sequelize
-//     (process.env.DB_NAME, 
-//     process.env.DB_USER, 
-//     process.env.DB_PASSWORD, {
-//     host: process.env.DB_HOST || 'localhost',
-//     port: process.env.DB_PORT || 3306,
-//     dialect: 'mysql', // Specify the dialect
-// });
-
-// Then I would connect to the database
+// Connect to the database
 export async function connect() {
     try {
-        await sequelize.authenticate(); // Authenticate the connection
- 
+        await neon.authenticate();
+        console.log('Successfully connected to Neon PostgreSQL database');
         
-        // Invoke the database and table creation process
-        // await createDatabase(); // Call the function that starts the process of creating the database and tables
+        // Initialize database and create tables
+        await initializeDatabase();
+        console.log('Database initialization completed');
     } catch (err) {
         console.error('Unable to connect to the database:', err);
-        process.exit(1); // Exit process on server connection error
+        process.exit(1);
     }
 }
-
-// Export the sequelize instance for use in other parts of the app
-export { sequelize };

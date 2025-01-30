@@ -1,14 +1,9 @@
-import { Sequelize } from 'sequelize';
 import { DataTypes } from 'sequelize';
 import bcrypt from 'bcryptjs';
-
-const sequelize = new Sequelize('database', 'username', 'password', {
-    host: 'localhost',
-    dialect: 'mysql' // or 'postgres', 'sqlite', etc.
-});
+import { neon } from '../Config/database.js';
 
 // Define the User model
-const User = sequelize.define('User', {
+export const User = neon.define('User', {
     name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -30,24 +25,9 @@ const User = sequelize.define('User', {
     tableName: 'users'
 });
 
-// Connecting the DB to Sequelize
-const createDatabase = async () => {
-    try {
-        await sequelize.authenticate();
-        console.log('Connection has been established successfully.');
-        
-        // Force recreate tables
-        await sequelize.sync({ force: true });
-        console.log('Database and tables synchronized');
-        
-        // Insert sample data
-        await insertSampleData();
-    } catch (error) {
-        console.error('Unable to initialize database:', error);
-    }
-};
 
-const insertSampleData = async () => {
+
+async function insertSampleData() {
     try {
         // Check if there are any users
         const userCount = await User.count();
@@ -63,6 +43,5 @@ const insertSampleData = async () => {
     } catch (error) {
         console.error('Error inserting sample data:', error);
     }
-};
+}
 
-export { createDatabase, User };

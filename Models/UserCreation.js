@@ -11,4 +11,5 @@ const createUser = async (username, email, password) => {
 };
 
 // Example usage
-createUser('MikeyMike', 'mikemikemikemikemike@example.com', 'securepassword123');
+
+export default createUser;

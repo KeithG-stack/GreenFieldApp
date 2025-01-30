@@ -1,5 +1,5 @@
 import express from 'express';
-import { createUser } from '../Models/UserCreation.js'; // Import the createUser function
+import createUser from '../Models/UserCreation.js'; // Import the createUser function
 
 const router = express.Router();
 // Route to create a new user
