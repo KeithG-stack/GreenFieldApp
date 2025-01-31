@@ -9,7 +9,7 @@ import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
 import { authenticateToken } from './Middleware/auth.js'; // Adjust the path as necessary
 import bodyParser from 'body-parser';
-
+import calendarRoutes from './routes/calendarRoutes.js';
 // Basic Authentication for the Application with task management and transactions
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,6 +27,10 @@ app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/', calendarRoutes);
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
