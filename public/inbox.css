@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .notifications ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .notifications li {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .notifications .unread {
+    background-color: #f0f8ff;
+    font-weight: bold;
+  }
+  
+  .notifications .read {
+    background-color: #f9f9f9;
+    color: #666;
+  }

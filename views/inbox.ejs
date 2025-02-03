@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inbox</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/inbox">Inbox</a>
+      <a href="/student-home">Back</a>
+    </nav>
+  </header>
+
+  <h1>Your Notifications</h1>
+  <div class="notifications">
+    <% if (notifications.length > 0) { %>
+      <ul>
+        <% notifications.forEach(notification => { %>
+          <li class="<%= notification.read ? 'read' : 'unread' %>">
+            <%= notification.message %>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>No new notifications.</p>
+    <% } %>
+  </div>
+
+  <footer>
+    <p>&copy; 2023 University Greenfield</p>
+  </footer>
+</body>
+</html>

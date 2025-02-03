@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/js/payment-status.js"></script>
+  <link rel="stylesheet" href="/css/styles.css">
+  <title>Payment Status</title>
+<header>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/inbox">Inbox</a>
+    <a href="/StudentHome">Back</a>
+  </nav>
+</header>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .class-button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    .class-button:hover {
+      background-color: #0056b3;
+    }
+    .amount-owed {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Payment Status</h1>
+  <p>Click on a class to see how much you owe:</p>
+
+  <!-- List of classes as buttons -->
+  <% classes.forEach(cls => { %>
+    <button class="class-button" data-amount="<%= cls.amountOwed %>">
+      <%= cls.name %>
+    </button>
+  <% }) %>
+
+  <!-- Display the amount owed here -->
+  <div class="amount-owed" id="amount-owed"></div>
+
+  <script>
+    // Add event listeners to the buttons
+    document.querySelectorAll('.class-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const amountOwed = button.getAttribute('data-amount');
+        document.getElementById('amount-owed').textContent = `You owe $${amountOwed} for ${button.textContent}.`;
+      });
+    });
+  </script>
+  <footer>
+    <p>&copy; 2025 Green Field</p>
+  </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

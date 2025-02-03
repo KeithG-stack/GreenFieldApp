@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
 
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        res.render('StudentHome', {name: user.name});
+        res.render('studentdashboard', {name: user.name});
 
 
     } catch (error) {
@@ -61,5 +61,13 @@ router.post('/login', async (req, res) => {
         res.status(500).render('login', { error: 'Error logging in' });
     }
 });
+// Route to serve the about page
+router.get('/about', (req, res) => {
+    res.render('about'); // Render the about page (make sure you have an about.ejs file in your views folder)
+});
 
+// Route to serve the contact page
+router.get('/contact', (req, res) => {
+    res.render('contact'); // Render the contact page (make sure you have a contact.ejs file in your views folder)
+});
 export default router;
