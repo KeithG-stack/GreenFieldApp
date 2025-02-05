@@ -15,7 +15,14 @@ import studenthomeRoutes from './routes/StudentHomeRoutes.js';
 import courseRoutes from './routes/courseRoutes.js';
 import assignmentRoutes from './routes/assignmentRoutes.js';
 import settingsRoutes from './routes/settingsRoutes.js';
+import facultyRoutes from './routes/facultyRoutes.js'; // Import the faculty routes
+import events from 'events';
+import { Faculty } from './models/Faculty.js'; // Import the Faculty model
+import adminRoutes from './routes/adminRoutes.js'; // Import the admin routes
+import { Admin } from './Models/admin.js'; // Import the Admin model
 
+// Increase the max listeners to avoid MaxListenersExceededWarning
+events.EventEmitter.defaultMaxListeners = 15;
 // Basic Authentication for the Application with task management and transactions
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -47,6 +54,8 @@ app.use('/', studenthomeRoutes);
 app.use('/', courseRoutes);
 app.use('/', assignmentRoutes);
 app.use('/', settingsRoutes);
+app.use('/', facultyRoutes); // Use the faculty routes
+app.use('/', adminRoutes); // Use the admin routes
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -76,9 +85,20 @@ app.get('/contact', (req, res) => {
     res.render('inbox', { notifications });
   });
 
+  app.get('/facultydashboard', (req, res) => {
+    res.render('facultydashboard', { error: null }); // Render the register view with error set to null
+});
+// Sync the Faculty model with the database
+Faculty.sync({ force: true }).then(() => {
+    console.log('Faculty table created');
+});
+
+Admin.sync({ force: true }).then(() => {
+    console.log('Admin table created');
+});
 // Routes
 app.use('/users', userRoutes);
-
+app.use('/', facultyRoutes); // Use the faculty routes
 app.listen(PORT, () => {
     console.log(`Server is running on port http://localhost:${PORT}`);
 });
