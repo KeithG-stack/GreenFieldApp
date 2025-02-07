@@ -61,6 +61,8 @@ router.get('/contact', (req, res) => {
     res.render('contact'); // Render the contact page (make sure you have a contact.ejs file in your views folder)
 });
 
+// / Example route for handling login form submission
+
 // Route to serve the faculty login page
 // router.get('/faculty/login', (req, res) => {
 //     res.render('facultylogin'); // Render the faculty login page (make sure you have a facultylogin.ejs file in your views folder)
