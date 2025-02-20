@@ -24,7 +24,7 @@ router.post('/submit-application', async (req, res) => {
 
 // Route to serve the login page
 router.get('/login', (req, res) => {
-    res.render('login'); // Render the login page (make sure you have a login.ejs file in your views folder)
+    res.render('login', { error: null }); // Render the admin registration page (make sure you have an adminRegister.ejs file in your views folder)
 });
 
 // Route to login a user

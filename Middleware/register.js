@@ -3,6 +3,7 @@ const registerForm = document.getElementById('registerForm');
 
 registerForm.addEventListener('submit', (event) => {
   event.preventDefault(); // Prevent default form submission
+  console.log('Form submitted'); // Log to the console for debugging
 
   // Get form data
   const name = document.getElementById('name').value;
@@ -10,6 +11,10 @@ registerForm.addEventListener('submit', (event) => {
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirm-password').value;
 
+  // For debugging
+  console.log('Name:', name);
+  console.log('Email:', email);
+  
   // Basic validation (optional)
   if (password !== confirmPassword) {
     alert('Passwords do not match!');
@@ -28,6 +33,7 @@ registerForm.addEventListener('submit', (event) => {
   .then(data => {
     // Handle successful registration on the client-side
     if (data.success) {
+      console.log('Registration successful');
       alert('Registration successful!');
       // Redirect to the homepage using window.location.href
       window.location.href = '/'; // Replace with your actual homepage route
