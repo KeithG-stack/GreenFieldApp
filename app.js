@@ -17,7 +17,7 @@ import assignmentRoutes from './routes/assignmentRoutes.js';
 import settingsRoutes from './routes/settingsRoutes.js';
 import facultyRoutes from './routes/facultyRoutes.js'; // Import the faculty routes
 import events from 'events';
-import { Faculty } from './Models/Faculty.js'; // Import the Faculty model
+import { Faculty } from './Models/faculty.js'; // Import the Faculty model
 import adminRoutes from './routes/adminRoutes.js'; // Import the admin routes
 import { Admin } from './Models/admin.js'; // Import the Admin model
 
