@@ -20,7 +20,7 @@ import events from 'events';
 import { Faculty } from './Models/faculty.js'; // Import the Faculty model
 import adminRoutes from './routes/adminRoutes.js'; // Import the admin routes
 import { Admin } from './Models/admin.js'; // Import the Admin model
-
+import loginRoutes from './Middleware/login.js'; // Import the login routes
 // Increase the max listeners to avoid MaxListenersExceededWarning
 events.EventEmitter.defaultMaxListeners = 15;
 // Basic Authentication for the Application with task management and transactions
@@ -56,6 +56,8 @@ app.use('/', assignmentRoutes);
 app.use('/', settingsRoutes);
 app.use('/', facultyRoutes); // Use the faculty routes
 app.use('/', adminRoutes); // Use the admin routes
+app.use('/', loginRoutes); // Use the login routes
+app.use('/users', userRoutes); // Use the user routes
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 

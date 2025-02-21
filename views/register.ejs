@@ -63,10 +63,10 @@
         <% if (error) { %>
             <p><%= error %></p>
         <% } %>
-        <form action="/users/submit-application" method="POST">
+        <form id="registerForm" action="/users/register" method="POST">
             <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
             </div>
             <div>
                 <label for="email">Email:</label>
@@ -75,6 +75,10 @@
             <div>
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
             </div>
             <button type="submit">Register</button>
         </form>

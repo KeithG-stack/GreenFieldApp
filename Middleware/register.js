@@ -22,7 +22,7 @@ registerForm.addEventListener('submit', (event) => {
   }
 
   // Send data to server using fetch
-  fetch('/users', {
+  fetch('/users/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

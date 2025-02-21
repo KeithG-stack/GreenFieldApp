@@ -1,5 +1,5 @@
 import express from 'express';
-import { Faculty, createFaculty, authenticateFaculty } from '../Models/Faculty.js'; // Import the Faculty model and functions
+import { Faculty, createFaculty, authenticateFaculty } from '../Models/faculty.js'; // Import the Faculty model and functions
 import jwt from 'jsonwebtoken';
 
 const router = express.Router();
